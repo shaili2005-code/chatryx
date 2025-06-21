@@ -19,7 +19,7 @@ load_dotenv()
 
 app.secret_key = os.getenv("SECRET_KEY", "super-secret-key")
 
-REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
 
 POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
@@ -329,4 +329,6 @@ def new_chat():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    # app.run(debug=True, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)

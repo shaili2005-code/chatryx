@@ -8,18 +8,18 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python deps
+# Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app source code
 COPY . .
 
-# Expose Flask port
+# Expose the default Flask port
 EXPOSE 5000
 
-# Set Flask env variable (optional)
-ENV FLASK_ENV=development
+# Set environment variable for production mode
+ENV FLASK_ENV=production
 
-# Run Flask app
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Run the Flask app using python 
+CMD ["python", "app.py"]
