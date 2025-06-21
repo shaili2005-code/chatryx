@@ -28,3 +28,4 @@ docker-compose.override.yaml
 # IDE/editor folders 
 .vscode/
 .idea/
+uploads/
