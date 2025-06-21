@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - AI Chat App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    form {
+      background: rgba(255 255 255 / 0.15);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+      width: 320px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0 1.25rem 0;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: inset 0 0 5px rgba(255 255 255 / 0.3);
+      background: rgba(255 255 255 / 0.25);
+      color: #fff;
+    }
+    input::placeholder {
+      color: #e0e0e0;
+      font-style: italic;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem 0;
+      border: none;
+      border-radius: 2rem;
+      background: #ff7e5f;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 15px #ff7e5faa;
+    }
+    button:hover {
+      background: #feb47b;
+      box-shadow: 0 6px 20px #feb47bcc;
+    }
+    .login-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #fff;
+      opacity: 0.8;
+    }
+    .login-link a {
+      color: #ff7e5f;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    .flash {
+      background: #ff6b6b;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      box-shadow: 0 0 10px #ff6b6baa;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏄‍♂️ Join the Chat Wave!</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">
+        {{ messages[0] }}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="{{ url_for('signup') }}">
+    <input
+      type="text"
+      name="username"
+      placeholder="Pick your username"
+      required
+      autocomplete="username"
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Keep it secret, keep it safe"
+      required
+      autocomplete="new-password"
+    />
+    <button type="submit">Let's Roll 🌴</button>
+  </form>
+
+  <div class="login-link">
+    Already riding the waves? <a href="{{ url_for('login') }}">Log in here</a>
+  </div>
+</body>
+</html>

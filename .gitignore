@@ -1,0 +1,30 @@
+# Virtual environment folders
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# Flask instance folder (if any)
+instance/
+
+# Docker related ignores
+docker-compose.override.yml
+docker-compose.override.yaml
+*.env
+.env.*
+
+# macOS system files
+.DS_Store
+
+# IDE/editor folders 
+.vscode/
+.idea/

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: shailinis         # Change this to your desired username
+      POSTGRES_PASSWORD: shaili@789   # Change this to your desired password
+      POSTGRES_DB: shaili256       # Change this to your desired database name
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  ai-chat-app:
+    build: .                    # Since Dockerfile is in root folder
+    container_name: ai-chat-app
+    ports:
+      - "5100:5000"             # Your app port, change if your app uses different port
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=shaili256
+      - POSTGRES_USER=shailinis 
+      - POSTGRES_PASSWORD=shaili@789
+    depends_on:
+      - redis
+      - postgres
+
+volumes:
+  pgdata:
