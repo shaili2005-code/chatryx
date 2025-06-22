@@ -15,12 +15,14 @@ import uuid
 app = Flask(__name__)
 CORS(app)
 
+
 load_dotenv()
 
 app.secret_key = os.getenv("SECRET_KEY", "super-secret-key")
 
 REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
 REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 
 POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
 POSTGRES_DB = os.getenv('POSTGRES_DB', 'mydatabase')
@@ -31,10 +33,19 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY not set in environment variables")
 
+
+
 genai.configure(api_key=GEMINI_API_KEY)
 default_model = "models/gemini-2.5-flash"
 
-redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
+
+redis_client = redis.Redis(
+    host=REDIS_HOST,
+    port=int(REDIS_PORT),
+    password=os.getenv("REDIS_PASSWORD"),  # Add Redis password from env
+    ssl=True  # Upstash requires SSL/TLS
+)
+
 
 max_attempts = 10
 for attempt in range(max_attempts):
@@ -146,7 +157,6 @@ def is_meaningful_answer(text):
         "i don't know",
         "do not know",
         "sorry",
-        "not sure",
         "no answer",
         "unable to",
         "cannot find",
@@ -154,6 +164,7 @@ def is_meaningful_answer(text):
         "can't answer"
     ]
     return not any(phrase in text for phrase in fallback_phrases)
+
 
 # ---------- New API: Get all chat sessions for logged-in user -----------
 
