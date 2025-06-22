@@ -325,10 +325,9 @@
   </div>
 
 <script>
-  // --- Set welcome username ---
-  // Replace 'Shaili' with the dynamic username from your backend/session if possible
-  const username = 'Shaili'; 
-  document.getElementById('username').textContent = username || 'Guest';
+  
+  const username = document.getElementById('username');
+  username.textContent = username.dataset.username || 'Guest';
 
   // --- Dark Mode Support ---
   const darkModeToggle = document.getElementById('dark-mode-toggle');
